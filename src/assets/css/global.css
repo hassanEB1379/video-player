@@ -1,0 +1,27 @@
+:root {
+    /* palette */
+    --dark: #1d1e24;
+    --lightgray: #cbcbcb;
+
+    /* colors */
+    --text: var(--lightgray);
+    --bg: var(--dark);
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    height: 100%;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './assets/styles/normalize.css'
-import './assets/styles/global.css'
+// global css
+import './assets/css/normalize.css'
+import './assets/css/global.css'
 
 const App = () => {
     return (
