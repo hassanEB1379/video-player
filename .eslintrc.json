@@ -17,7 +17,22 @@
   },
   "rules": {
     "react/prop-types": 0,
-    "react/jsx-max-props-per-line": [1, { "maximum":1, "when": "always" }],
+    "react/jsx-max-props-per-line": [1, {"maximum": 1}],
+    "react/jsx-first-prop-new-line": [1, "multiline"],
+    "react/jsx-closing-bracket-location": [1, "tag-aligned"],
+    "react/jsx-closing-tag-location" : 1,
+    "react/no-danger": 1,
+    "react/jsx-no-target-blank": 1,
+    "react/jsx-no-script-url": 1,
+    "react/destructuring-assignment": 1,
+    "react/jsx-props-no-spreading": 1,
+    "react/default-props-match-prop-types": 1,
+    "react/no-unknown-property": 1,
+    "react/sort-prop-types": 1,
+    "react/jsx-curly-brace-presence": 1,
+    "react/jsx-curly-newline": 1,
+    "react/jsx-key": 1,
+    "react/jsx-no-constructed-context-values": 1,
     "indent": [
       "error",
       4
