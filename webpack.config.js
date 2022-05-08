@@ -25,7 +25,11 @@ module.exports = {
                     }
                     ,
                     {
-                        loader: 'css-loader'
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            importLoaders: 1
+                        }
                     },
                 ],
             },
