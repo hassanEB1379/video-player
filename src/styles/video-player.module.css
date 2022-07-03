@@ -1,0 +1,78 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.player {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls {
+    flex: 0 1 80px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.control {
+    all: unset;
+    cursor: pointer;
+}
+
+.timelineContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.timeline {
+    width: 100%;
+    height: 3px;
+    background-color: var(--trs-lightgray);
+    position: relative;
+}
+
+.elapsedTime {
+    background-color: var(--lightgray);
+    height: 100%;
+    width: 0;
+}
+
+.timeIndicator {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--lightgray);
+    cursor: pointer;
+}
+
+.hoveredTime {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    transform: translateX(-50%);
+    padding: .5rem;
+    font-size: .9rem;
+}
+
+.shadowTimeline {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+}
+
+.footer {
+
+}

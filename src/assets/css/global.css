@@ -1,21 +1,28 @@
 :root {
     /* palette */
     --dark: #1d1e24;
+    --gray: #2c323d;
     --lightgray: #cbcbcb;
+    --trs-lightgray: #CBCBCB32;
 
     /* colors */
     --text: var(--lightgray);
+    --border: var(--gray);
     --bg: var(--dark);
 }
 
-html {
+html,
+body,
+body > div {
     height: 100%;
+}
+
+html {
     box-sizing: border-box;
     font-family: 'Lato', sans-serif;
 }
 
 body {
-    height: 100%;
     background-color: var(--bg);
     color: var(--text);
 }
