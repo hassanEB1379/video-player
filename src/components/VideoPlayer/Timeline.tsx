@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {getFormattedTime} from '../../utils/getFormattedTime';
 import styles from '../../styles/video-player.module.css';
 
@@ -7,30 +7,52 @@ interface Props {
 }
 
 const Timeline = ({video}: Props) => {
-    const [showHoveredTime, setShowHoveredTime] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
     const [hoveredTimePos, setHoveredTimePos] = useState(0);
     const [hoveredTime, setHoveredTime] = useState(0);
 
     // the elapsed time of video in second
     const [elapsedTime, setElapsedTime] = useState(0);
 
-    const handleUpdateHoveredTime = (e: React.MouseEvent<HTMLDivElement>) => {
+    const convertTimelinePosToVideoTime = (e: React.MouseEvent<HTMLDivElement>) => {
         let mouseOffset = e.nativeEvent.offsetX;
-        // @ts-ignore
-        let timelineWidth = e.target.offsetWidth;
 
-        let cofficient = mouseOffset / timelineWidth
+        let timelineWidth = ref.current.offsetWidth;
 
-        setHoveredTimePos(cofficient * 100);
-        setHoveredTime(cofficient * video?.duration)
+        let cofficient = mouseOffset / timelineWidth;
+
+        return {
+            inPercent : cofficient * 100,
+            inSecond: cofficient * video?.duration
+        }
     }
 
-    const handleShowHoveredTime = () => {
-        setShowHoveredTime(true);
+    const handleUpdateHoveredTime = (e: React.MouseEvent<HTMLDivElement>) => {
+        let {inPercent, inSecond} = convertTimelinePosToVideoTime(e);
+        setHoveredTimePos(inPercent);
+        setHoveredTime(inSecond)
     }
 
-    const handleHideHoveredTime = () => {
-        setShowHoveredTime(false)
+    const handleUpdateTime = (e: React.MouseEvent<HTMLDivElement>) => {
+        let {inSecond} = convertTimelinePosToVideoTime(e);
+        if (video && video.currentTime) video.currentTime = inSecond;
+    }
+
+    const handleDragTime = () => {
+        const handler = (e: MouseEvent) => {
+            let x = e.movementX;
+            if (video && video.currentTime) video.currentTime += x;
+        }
+
+        window.addEventListener('mousemove', handler);
+
+        const cleanup = () => {
+            window.removeEventListener('mousemove', handler);
+            window.removeEventListener('mouseup', cleanup);
+        }
+
+        window.addEventListener('mouseup', cleanup);
     }
 
     // update elapsed time of video
@@ -51,18 +73,18 @@ const Timeline = ({video}: Props) => {
 
             <div className={styles.timeline}>
                 <div
-                    onMouseEnter={handleShowHoveredTime}
+                    role='none'
+                    onClick={handleUpdateTime}
                     onMouseMove={handleUpdateHoveredTime}
-                    onMouseLeave={handleHideHoveredTime}
                     className={styles.shadowTimeline}
+                    ref={ref}
                 >
-                    {showHoveredTime &&
-                        <div
-                            style={{left: `${hoveredTimePos}%`}}
-                            className={styles.hoveredTime}
-                        >
-                            {getFormattedTime(hoveredTime)}
-                        </div>}
+                    <div
+                        style={{left: `${hoveredTimePos}%`}}
+                        className={styles.hoveredTime}
+                    >
+                        {getFormattedTime(hoveredTime)}
+                    </div>
                 </div>
 
 
@@ -72,8 +94,11 @@ const Timeline = ({video}: Props) => {
                 />
 
                 <span
+                    role='none'
+                    data-time={getFormattedTime(elapsedTime)}
                     style={{left: `${(elapsedTime / video?.duration) * 100}%`}}
                     className={styles.timeIndicator}
+                    onMouseDown={handleDragTime}
                 />
             </div>
 
