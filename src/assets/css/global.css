@@ -1,6 +1,7 @@
 :root {
     /* palette */
     --dark: #1d1e24;
+    --black: #000;
     --gray: #2c323d;
     --lightgray: #cbcbcb;
     --trs-lightgray: #CBCBCB32;
@@ -31,4 +32,9 @@ body {
 *:before,
 *:after {
     box-sizing: inherit;
+}
+
+button {
+    all: unset;
+    cursor: pointer;
 }
