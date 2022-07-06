@@ -1,6 +1,17 @@
 import React, {useRef, useState} from 'react';
 import Timeline from './Timeline';
 import styles from '../../styles/video-player.module.css';
+import {
+    BsPlayFill,
+    BsArrowClockwise,
+    BsArrowCounterclockwise,
+    BsPauseFill,
+    BsFillVolumeDownFill,
+    BsSpeedometer,
+    BsFullscreen,
+    BsWindowDock
+} from 'react-icons/bs';
+import Volume from './Volume';
 
 interface Props {
     src: string;
@@ -42,34 +53,63 @@ const VideoPlayer = ({src = ''}: Props) => {
             <footer className={styles.footer}>
                 <Timeline video={ref.current}/>
 
-                <div className={styles.controls}>
-                    <button
-                        onClick={() => goBack(20)}
-                        className={styles.control}
-                    >
-                        20s behind
-                    </button>
+                <div className={styles.controlsContainer}>
+                    <div className={styles.buttonGroup}>
+                        <button title='fullscreen mode'>
+                            <BsFullscreen/>
+                        </button>
+                        <button title='add subtitles'>
+                            <BsWindowDock/>
+                        </button>
+                    </div>
 
-                    {paused ?
+                    <div className={styles.controls}>
                         <button
-                            onClick={play}
-                            className={styles.control}
+                            title='20s behind'
+                            onClick={() => goBack(20)}
                         >
-                            Play
-                        </button>:
-                        <button
-                            onClick={pause}
-                            className={styles.control}
-                        >
-                            Pause
-                        </button>}
+                            <BsArrowCounterclockwise/>
+                        </button>
 
-                    <button
-                        className={styles.control}
-                        onClick={() => goFurther(20)}
-                    >
-                        20s ahead
-                    </button>
+                        {paused ?
+                            <button
+                                title='play'
+                                onClick={play}
+                            >
+                                <BsPlayFill/>
+                            </button>:
+                            <button
+                                title='pause'
+                                onClick={pause}
+                            >
+                                <BsPauseFill/>
+                            </button>}
+
+                        <button
+                            title='20s further'
+                            onClick={() => goFurther(20)}
+                        >
+                            <BsArrowClockwise/>
+                        </button>
+                    </div>
+
+                    <div className={styles.buttonGroup}>
+                        <button title='speed'>
+                            <BsSpeedometer size='1.5em'/>
+                        </button>
+
+                        <Volume
+                            video={ref.current}
+                            trigger={(open) => (
+                                <button
+                                    title='volume'
+                                    onClick={open}
+                                >
+                                    <BsFillVolumeDownFill/>
+                                </button>
+                            )}
+                        />
+                    </div>
                 </div>
             </footer>
         </div>
