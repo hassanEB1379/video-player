@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Timeline from './Timeline';
 import Volume from './Volume';
 import Speed from './Speed';
+import {useFullscreen} from '../../hooks/useFullscreen';
 import styles from '../../styles/video-player.module.css';
 import {
     BsPlayFill,
@@ -13,7 +14,6 @@ import {
     BsFullscreen,
     BsFullscreenExit
 } from 'react-icons/bs';
-import {useFullscreen} from '../../hooks/useFullscreen';
 
 interface Props {
     src: string;
@@ -49,13 +49,17 @@ const VideoPlayer = ({src = ''}: Props) => {
         if (isFullscreen) setShowFooter(false);
     }
 
+    // handle show footer
     useEffect(() => {
         const listener = (e: MouseEvent) => {
+            // show when mouse touch bottom edge
             if (e.clientY >= window.innerHeight - 10) {
                 setShowFooter(true);
             }
         };
 
+        // set event only in fullscreen mode and reset showFooter state to default value
+        // when exit fullscreen
         if (isFullscreen) document.addEventListener('mousemove', listener);
         else setShowFooter(true);
 
