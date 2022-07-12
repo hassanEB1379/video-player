@@ -23,7 +23,7 @@ const App = () => {
     }
 
     return (
-        <IconContext.Provider value={{color: 'white', size: '2em'}}>
+        <IconContext.Provider value={{color: 'white', size: '2rem'}}>
             <div className={styles.container}>
                 {src ?
                     <VideoPlayer src={src}/>:
