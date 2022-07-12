@@ -38,3 +38,7 @@ button {
     all: unset;
     cursor: pointer;
 }
+
+video::-webkit-media-controls {
+    display:none !important;
+}
