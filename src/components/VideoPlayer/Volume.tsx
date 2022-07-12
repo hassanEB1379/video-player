@@ -21,10 +21,9 @@ const Volume = ({trigger, video}: Props) => {
 
     return (
         <Popover trigger={trigger}>
-            <div className={styles.volumeBox}>
+            <div className={styles.box}>
                 <p>{volume.toFixed(2)}</p>
                 <RangeSlider
-                    size={100}
                     max={1}
                     orientation='vertical'
                     value={volume}
