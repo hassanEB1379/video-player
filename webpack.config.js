@@ -14,7 +14,14 @@ module.exports = {
             directory: path.join(__dirname, 'dist'),
         },
         port: 9000,
-        open: true
+        open: true,
+        server: {
+            type: 'https',
+            options: {
+                key: './localhost-key.pem',
+                cert: './localhost.pem',
+            },
+        }
     },
     module: {
         rules: [
