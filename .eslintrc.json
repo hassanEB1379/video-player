@@ -3,7 +3,8 @@
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
@@ -27,6 +28,7 @@
     }
   },
   "rules": {
+    "@typescript-eslint/ban-ts-comment": 1,
     "react/prop-types": 0,
     "react/jsx-max-props-per-line": [1, {"maximum": 1}],
     "react/jsx-first-prop-new-line": [1, "multiline"],
