@@ -3,6 +3,7 @@ import VideoPlayer from './components/VideoPlayer/VideoPlayer';
 import Button from './components/Button/Button';
 import {IconContext} from 'react-icons';
 
+import 'regenerator-runtime/runtime.js';
 import './assets/css/normalize.css'
 import './assets/css/global.css'
 import styles from './styles/app.module.css'
@@ -17,7 +18,7 @@ const App = () => {
     }
 
     const handleSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
-        let file = e.target.files[0];
+        const file = e.target.files[0];
 
         setSrc(URL.createObjectURL(file))
     }
