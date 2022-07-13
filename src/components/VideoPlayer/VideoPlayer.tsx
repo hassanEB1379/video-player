@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Timeline from './Timeline';
 import Volume from './Volume';
 import Speed from './Speed';
+import {srt2vtt} from '../../utils/srt2vtt';
 import {useFullscreen} from '../../hooks/useFullscreen';
 import styles from '../../styles/video-player.module.css';
 import {
@@ -12,7 +13,7 @@ import {
     BsFillVolumeDownFill,
     BsSpeedometer,
     BsFullscreen,
-    BsFullscreenExit
+    BsFullscreenExit, BsWindow
 } from 'react-icons/bs';
 
 interface Props {
@@ -22,6 +23,7 @@ interface Props {
 const VideoPlayer = ({src = ''}: Props) => {
     const [paused, setPaused] = useState(true);
     const [showFooter, setShowFooter] = useState(true);
+    const [subtitleSrc, setSubtitleSrc] = useState('');
 
     const player = useRef<HTMLVideoElement>(null);
     const playerContainer = useRef<HTMLDivElement>(null);
@@ -43,6 +45,33 @@ const VideoPlayer = ({src = ''}: Props) => {
 
     const goBack = (s: number) => {
         player.current.currentTime -= s;
+    }
+
+    const addSubtitles = async () => {
+        const options = {
+            types: [
+                {
+                    descriptions: 'Subtitles',
+                    accept: {
+                        'text/plain': ['.srt'],
+                        'text/vtt': ['.vtt']
+                    }
+                }
+            ]
+        }
+
+        // @ts-ignore
+        const [fileHandle] = await window.showOpenFilePicker(options);
+
+        const file = await fileHandle.getFile();
+
+        const text = await file.text();
+
+        const extension = file.name.substring(file.name.lastIndexOf('.') + 1);
+
+        const src = extension === 'vtt' ? URL.createObjectURL(file) : srt2vtt(text);
+
+        setSubtitleSrc(src)
     }
 
     const handleHideFooter = () => {
@@ -71,14 +100,22 @@ const VideoPlayer = ({src = ''}: Props) => {
             ref={playerContainer}
             className={`${styles.container} ${isFullscreen ? styles.fullscreen : ''}`}
         >
-            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <div className={styles.player}>
+                {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                 <video
                     preload='metadata'
                     src={src}
                     ref={player}
                     title=''
-                />
+                >
+                    <track
+                        label='subtitles'
+                        src={subtitleSrc}
+                        kind='subtitles'
+                        srcLang='en'
+                        default
+                    />
+                </video>
             </div>
 
             {showFooter &&
@@ -95,6 +132,13 @@ const VideoPlayer = ({src = ''}: Props) => {
                                 title='fullscreen mode'
                             >
                                 {isFullscreen ? <BsFullscreenExit/> : <BsFullscreen/>}
+                            </button>
+
+                            <button
+                                onClick={addSubtitles}
+                                title='add subtitles'
+                            >
+                                <BsWindow/>
                             </button>
                         </div>
 
