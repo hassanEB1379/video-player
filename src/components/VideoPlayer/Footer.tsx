@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {MutableRefObject, useEffect, useState} from 'react';
 import Timeline from './Timeline';
 import Speed from './Speed';
 import Volume from './Volume';
@@ -16,8 +16,8 @@ import {
 } from 'react-icons/bs';
 
 interface Props {
-    player: HTMLVideoElement,
-    fullscreenTarget: HTMLElement,
+    player: MutableRefObject<HTMLVideoElement>,
+    fullscreenTarget: MutableRefObject<HTMLElement>,
     setSubtitleSrc: React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -28,20 +28,20 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
     const {toggleFullscreen, isFullscreen} = useFullscreen();
 
     const play = () => {
-        player.play().then(() => setPaused(false));
+        player.current.play().then(() => setPaused(false));
     }
 
     const pause = () => {
         setPaused(true);
-        player.pause();
+        player.current.pause();
     }
 
     const goFurther = (s: number) => {
-        player.currentTime += s;
+        player.current.currentTime += s;
     }
 
     const goBack = (s: number) => {
-        player.currentTime -= s;
+        player.current.currentTime -= s;
     }
 
     const addSubtitles = async () => {
@@ -95,12 +95,12 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
             onMouseLeave={handleHideFooter}
             className={styles.footer}
         >
-            <Timeline video={player}/>
+            <Timeline video={player.current}/>
 
             <div className={styles.controlsContainer}>
                 <div className={styles.buttonGroup}>
                     <button
-                        onClick={() => toggleFullscreen(fullscreenTarget)}
+                        onClick={() => toggleFullscreen(fullscreenTarget.current)}
                         title='fullscreen mode'
                     >
                         {isFullscreen ? <BsFullscreenExit/> : <BsFullscreen/>}
@@ -146,7 +146,7 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
 
                 <div className={styles.buttonGroup}>
                     <Speed
-                        video={player}
+                        video={player.current}
                         trigger={(open) => (
                             <button
                                 onClick={open}
@@ -159,7 +159,7 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
 
 
                     <Volume
-                        video={player}
+                        video={player.current}
                         trigger={(open) => (
                             <button
                                 title='volume'

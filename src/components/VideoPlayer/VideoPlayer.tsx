@@ -57,8 +57,8 @@ const VideoPlayer = () => {
             </div>
 
             <Footer
-                player={player.current}
-                fullscreenTarget={playerContainer.current}
+                player={player}
+                fullscreenTarget={playerContainer}
                 setSubtitleSrc={setSubtitleSrc}
             />
         </div>
