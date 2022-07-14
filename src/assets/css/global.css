@@ -1,15 +1,17 @@
 :root {
     /* palette */
-    --dark: #1d1e24;
-    --black: #000;
-    --gray: #2c323d;
-    --lightgray: #cbcbcb;
-    --trs-lightgray: #CBCBCB32;
+    --black: #021521;
+    --dark: #06283D;
+    --blue: #1363DF;
+    --light-blue: #47B5FF;
+    --light: #DFF6FF;
+    --trs-light: #DFF6FF32;
 
     /* colors */
-    --text: var(--lightgray);
-    --border: var(--gray);
-    --bg: var(--dark);
+    --primary: var(--dark);
+    --secondary: var(--blue);
+    --text: var(--light);
+    --bg: var(--black);
 }
 
 html,
@@ -26,6 +28,7 @@ html {
 body {
     background-color: var(--bg);
     color: var(--text);
+    overflow-x: hidden;
 }
 
 *,
