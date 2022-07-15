@@ -2,7 +2,6 @@ import React, {MutableRefObject, useEffect, useState} from 'react';
 import Timeline from './Timeline';
 import Speed from './Speed';
 import Volume from './Volume';
-import {useFullscreen} from '../../hooks/useFullscreen';
 import {srt2vtt} from '../../utils/srt2vtt';
 import styles from '../../styles/video-player.module.css';
 import {
@@ -11,21 +10,29 @@ import {
     BsFullscreen,
     BsFullscreenExit,
     BsPauseFill,
-    BsPlayFill, BsSpeedometer,
+    BsPlayFill, BsReverseLayoutSidebarReverse, BsSpeedometer,
     BsWindow
 } from 'react-icons/bs';
 
 interface Props {
     player: MutableRefObject<HTMLVideoElement>,
     fullscreenTarget: MutableRefObject<HTMLElement>,
-    setSubtitleSrc: React.Dispatch<React.SetStateAction<string>>
+    setSubtitleSrc: React.Dispatch<React.SetStateAction<string>>,
+    onToggleSidebar: () => void,
+    onToggleFullscreen: (elm: HTMLElement) => void,
+    isFullscreen: boolean
 }
 
-const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
+const Footer = ({
+    player,
+    setSubtitleSrc,
+    fullscreenTarget,
+    onToggleSidebar,
+    onToggleFullscreen,
+    isFullscreen
+}: Props) => {
     const [paused, setPaused] = useState(true);
-    const [showFooter, setShowFooter] = useState(false);
-
-    const {toggleFullscreen, isFullscreen} = useFullscreen();
+    const [showFooter, setShowFooter] = useState(true);
 
     const play = () => {
         player.current.play().then(() => setPaused(false));
@@ -72,7 +79,7 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
     }
 
     const handleHideFooter = () => {
-        setShowFooter(false);
+        if (isFullscreen) setShowFooter(false);
     }
 
     // handle show footer
@@ -84,10 +91,13 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
             }
         };
 
-        document.addEventListener('mousemove', listener);
+        if (isFullscreen) document.addEventListener('mousemove', listener);
+        else setShowFooter(true)
 
-        return () => {document.removeEventListener('mousemove', listener)};
-    }, [])
+        return () => {
+            if (isFullscreen) document.removeEventListener('mousemove', listener)
+        };
+    }, [isFullscreen])
 
     return (
         <footer
@@ -100,7 +110,7 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
             <div className={styles.controlsContainer}>
                 <div className={styles.buttonGroup}>
                     <button
-                        onClick={() => toggleFullscreen(fullscreenTarget.current)}
+                        onClick={() => onToggleFullscreen(fullscreenTarget.current)}
                         title='fullscreen mode'
                     >
                         {isFullscreen ? <BsFullscreenExit/> : <BsFullscreen/>}
@@ -114,7 +124,7 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
                     </button>
                 </div>
 
-                <div className={styles.controls}>
+                <div className={styles.buttonGroup}>
                     <button
                         title='20s behind'
                         onClick={() => goBack(20)}
@@ -145,6 +155,13 @@ const Footer = ({player, setSubtitleSrc, fullscreenTarget}: Props) => {
                 </div>
 
                 <div className={styles.buttonGroup}>
+                    <button
+                        onClick={() => onToggleSidebar()}
+                        title='sidebar'
+                    >
+                        <BsReverseLayoutSidebarReverse/>
+                    </button>
+
                     <Speed
                         video={player.current}
                         trigger={(open) => (
