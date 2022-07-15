@@ -26,7 +26,7 @@ const VideoPlayer = () => {
     return (
         <div
             ref={playerContainer}
-            className={`${styles.container} ${isFullscreen ? styles.fullscreen : ''}`}
+            className={`${styles.container}`}
         >
             <div className={styles.player}>
                 {!src && <StartMenu onSelectFile={handleSelectFile}/>}
