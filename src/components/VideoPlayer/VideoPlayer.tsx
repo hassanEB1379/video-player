@@ -1,15 +1,23 @@
 import React, { useRef, useState} from 'react';
 import styles from '../../styles/video-player.module.css';
-import FilePicker from '../FilePicker/FilePicker';
 import Footer from './Footer';
+import Sidebar from './Sidebar';
+import StartMenu from './StartMenu';
+import {useFullscreen} from '../../hooks/useFullscreen';
 
 const VideoPlayer = () => {
-
+    const [showSidebar, setShowSidebar] = useState(false);
     const [subtitleSrc, setSubtitleSrc] = useState('');
     const [src, setSrc] = useState('');
 
     const player = useRef<HTMLVideoElement>(null);
     const playerContainer = useRef<HTMLDivElement>(null);
+
+    const {toggleFullscreen, isFullscreen} = useFullscreen();
+
+    const handleToggleSidebar = (state?: boolean | undefined) => {
+        setShowSidebar(p => state ?? !p);
+    }
 
     const handleSelectFile = (file: File) => {
         setSrc(URL.createObjectURL(file))
@@ -18,48 +26,45 @@ const VideoPlayer = () => {
     return (
         <div
             ref={playerContainer}
-            className={`${styles.container}`}
+            className={`${styles.container} ${isFullscreen ? styles.fullscreen : ''}`}
         >
             <div className={styles.player}>
-                {!src &&
-                    <ul>
-                        <li>
-                            Open{' '}
-                            <FilePicker
-                                label='file'
-                                onChange={handleSelectFile}
-                            />
-                        </li>
-                        <li>
-                            Open folder
-                        </li>
-                        <li>
-                            Recent viewed
-                        </li>
-                    </ul>}
+                {!src && <StartMenu onSelectFile={handleSelectFile}/>}
 
                 {src &&
-                    /* eslint-disable-next-line jsx-a11y/media-has-caption */
-                    <video
-                        preload='metadata'
-                        src={src}
-                        ref={player}
-                        title=''
-                    >
-                        <track
-                            label='subtitles'
-                            src={subtitleSrc}
-                            kind='subtitles'
-                            srcLang='en'
-                            default
-                        />
-                    </video>}
+                    <div className={styles.video}>
+                        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                        <video
+                            preload='metadata'
+                            src={src}
+                            ref={player}
+                            title=''
+                        >
+                            <track
+                                label='subtitles'
+                                src={subtitleSrc}
+                                kind='subtitles'
+                                srcLang='en'
+                                default
+                            />
+                        </video>
+                    </div>}
+
+                <Footer
+                    player={player}
+                    fullscreenTarget={playerContainer}
+                    setSubtitleSrc={setSubtitleSrc}
+                    onToggleSidebar={handleToggleSidebar}
+                    onToggleFullscreen={toggleFullscreen}
+                    isFullscreen={isFullscreen}
+                />
             </div>
 
-            <Footer
-                player={player}
-                fullscreenTarget={playerContainer}
-                setSubtitleSrc={setSubtitleSrc}
+            <Sidebar
+                showSidebar={showSidebar}
+                isFullscreen={isFullscreen}
+                onShow={() => handleToggleSidebar(true)}
+                onHide={() => handleToggleSidebar(false)}
             />
         </div>
     );
