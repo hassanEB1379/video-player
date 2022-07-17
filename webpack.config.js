@@ -7,7 +7,8 @@ module.exports = {
     entry: './src/index.tsx',
     devtool:'inline-source-map',
     output: {
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        clean: true
     },
     devServer: {
         static: {
@@ -57,7 +58,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './public/index.html'
         }),
     ],
     optimization: {},
