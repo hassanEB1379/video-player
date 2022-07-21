@@ -10,7 +10,10 @@ import {
     BsFullscreen,
     BsFullscreenExit,
     BsPauseFill,
-    BsPlayFill, BsReverseLayoutSidebarReverse, BsSpeedometer,
+    BsPlayFill,
+    BsReverseLayoutSidebarReverse,
+    BsSpeedometer,
+    BsStopFill,
     BsWindow
 } from 'react-icons/bs';
 
@@ -41,6 +44,11 @@ const Footer = ({
     const pause = () => {
         setPaused(true);
         player.current.pause();
+    }
+
+    const stop = () => {
+        pause();
+        player.current.currentTime = 0;
     }
 
     const goFurther = (s: number) => {
@@ -145,6 +153,13 @@ const Footer = ({
                         >
                             <BsPauseFill/>
                         </button>}
+
+                    <button
+                        title='stop'
+                        onClick={stop}
+                    >
+                        <BsStopFill/>
+                    </button>
 
                     <button
                         title='20s further'
