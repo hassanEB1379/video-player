@@ -1,4 +1,10 @@
-import React, {createContext, useContext, useMemo, useState} from 'react';
+import React, {createContext, useContext, useEffect, useMemo, useState} from 'react';
+import * as localforage from 'localforage';
+import 'regenerator-runtime/runtime'
+
+const recentVideosDB = localforage.createInstance({
+    name: 'recent-videos'
+});
 
 export interface RecentVideo {
     id: number;
@@ -14,9 +20,9 @@ export function useRecentVideos() {
 }
 
 export default function RecentVideosProvider({children}: {children: React.ReactNode}) {
-    const [recent, setRecent] = useState(getFromLs());
+    const [recent, setRecent] = useState<RecentVideo[]>([]);
 
-    const add = (file: File) => {
+    const add = async (file: File) => {
         const data = {
             id: Math.floor(Math.random() * 10000),
             name: file.name,
@@ -24,12 +30,12 @@ export default function RecentVideosProvider({children}: {children: React.ReactN
             file
         };
 
-        setToLs(data);
+        await setToLs(data);
         setRecent((p: RecentVideo[]) => [...p, data]);
     }
 
-    const remove = (id: number) => {
-        removeFromLs(id);
+    const remove = async (id: number) => {
+        await removeFromLs(String(id));
         setRecent((p: RecentVideo[]) => p.filter(item => item.id === id));
     }
 
@@ -39,6 +45,12 @@ export default function RecentVideosProvider({children}: {children: React.ReactN
         remove
     }), [recent])
 
+    useEffect(() => {
+        (async () => {
+            setRecent(await getAllFromDB());
+        })()
+    }, [])
+
     return (
         <recentVideosContext.Provider value={value}>
             {children}
@@ -47,19 +59,20 @@ export default function RecentVideosProvider({children}: {children: React.ReactN
 }
 
 // utils
-const KEY = 'recent-videos';
+const getAllFromDB = async () => {
+    const data: RecentVideo[] = [];
 
-const getFromLs = () => {
-    return JSON.parse(localStorage.getItem(KEY)) || [];
+    await recentVideosDB.iterate(function (value: RecentVideo) {
+        data.push(value);
+    })
+
+    return data;
 }
 
-const setToLs = (data: RecentVideo) => {
-    localStorage.setItem(KEY, JSON.stringify([...getFromLs(), data]));
+const setToLs = async (data: RecentVideo) => {
+    await recentVideosDB.setItem(String(data.id), data)
 }
 
-const removeFromLs = (id: number) => {
-    localStorage.setItem(
-        KEY,
-        JSON.stringify(getFromLs().filter((item: RecentVideo) => item.id === id))
-    )
+const removeFromLs = async (key: string) => {
+    await recentVideosDB.removeItem(key)
 }
