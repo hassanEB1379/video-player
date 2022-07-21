@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
 import styles from '../../styles/video-player.module.css'
+import {RecentVideo, useRecentVideos} from '../../context/VideoPlayer/RecentVideos';
+import {useVideoSrc} from '../../context/VideoPlayer/VideoSrc';
 
 interface Props {
     onHide: () => void,
@@ -9,6 +11,9 @@ interface Props {
 }
 
 const Sidebar = ({onHide, onShow, isFullscreen, showSidebar}: Props) => {
+    const {recent} = useRecentVideos();
+    const {setVideoSrc} = useVideoSrc();
+
     useEffect(() => {
         const listener = (e: MouseEvent) => {
             console.log(e.clientX, window.innerWidth)
@@ -36,6 +41,16 @@ const Sidebar = ({onHide, onShow, isFullscreen, showSidebar}: Props) => {
         >
             <ul>
                 <li>Recent</li>
+
+                {recent.map((item: RecentVideo) => (
+                    <li key={item.id}>
+                        <button
+                            onClick={() => setVideoSrc(item.file)}
+                        >
+                            {item.name}
+                        </button>
+                    </li>
+                ))}
             </ul>
         </aside>
     );
