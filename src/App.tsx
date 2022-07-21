@@ -1,6 +1,6 @@
 import React from 'react';
 import VideoPlayer from './components/VideoPlayer/VideoPlayer';
-import {IconContext} from 'react-icons';
+import Providers from './context';
 
 import 'regenerator-runtime/runtime.js';
 import './assets/css/normalize.css'
@@ -8,9 +8,9 @@ import './assets/css/global.css'
 
 const App = () => {
     return (
-        <IconContext.Provider value={{color: 'white', size: '1.2rem'}}>
+        <Providers>
             <VideoPlayer />
-        </IconContext.Provider>
+        </Providers>
     );
 };
 
