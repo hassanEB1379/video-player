@@ -4,11 +4,14 @@ import Footer from './Footer';
 import Sidebar from './Sidebar';
 import StartMenu from './StartMenu';
 import {useFullscreen} from '../../hooks/useFullscreen';
+import {useRecentVideos} from '../../context/VideoPlayer/RecentVideos';
+import {useVideoSrc} from '../../context/VideoPlayer/VideoSrc';
 
 const VideoPlayer = () => {
     const [showSidebar, setShowSidebar] = useState(false);
     const [subtitleSrc, setSubtitleSrc] = useState('');
-    const [src, setSrc] = useState('');
+    const {src, setVideoSrc} = useVideoSrc();
+    const {add: addToRecent} = useRecentVideos();
 
     const player = useRef<HTMLVideoElement>(null);
     const playerContainer = useRef<HTMLDivElement>(null);
@@ -20,7 +23,8 @@ const VideoPlayer = () => {
     }
 
     const handleSelectFile = (file: File) => {
-        setSrc(URL.createObjectURL(file))
+        setVideoSrc(file);
+        addToRecent(file);
     }
 
     return (
