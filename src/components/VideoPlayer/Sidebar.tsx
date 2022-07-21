@@ -41,7 +41,7 @@ const Sidebar = ({onHide, onShow, isFullscreen, showSidebar}: Props) => {
             onMouseLeave={() => isFullscreen && onHide()}
             className={styles.sidebar}
         >
-            <ul>
+            <ul className={styles.sidebarTabs}>
                 <li>Recent</li>
             </ul>
 

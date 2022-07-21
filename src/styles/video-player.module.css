@@ -36,6 +36,10 @@
     flex: 0 0 400px;
 }
 
+.sidebarTabs {
+    padding: 1rem;
+}
+
 .sidebarList {
     margin-top: 1rem;
     font-size: .8rem;
@@ -83,6 +87,7 @@
     height: 160px;
     padding-bottom: .5rem;
     display: flex;
+    gap: .75rem;
     flex-direction: column;
     align-items: center;
 }

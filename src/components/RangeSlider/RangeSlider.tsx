@@ -16,19 +16,19 @@ const RangeSlider = ({value, onChange, orientation = 'horizontal', min = 0, max}
     const ref = useRef<HTMLDivElement>(null);
 
     const convertMousePosToValue = (pos: number): number => {
-        let containerSize = ref.current[orientation === 'vertical' ? 'offsetHeight' : 'offsetWidth'];
+        const containerSize = ref.current[orientation === 'vertical' ? 'offsetHeight' : 'offsetWidth'];
         return (pos / containerSize) * range;
     }
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-        let pos = orientation === 'vertical' ?
+        const pos = orientation === 'vertical' ?
             // offsetY property show distance from top edge
-            // but we need to distance from bottom
+            // ,but we need to distance from bottom
             // therefore, we subtract it from the total height
             ref.current.offsetHeight - e.nativeEvent.offsetY :
             e.nativeEvent.offsetX;
 
-        let newValue = convertMousePosToValue(pos);
+        const newValue = convertMousePosToValue(pos);
 
         onChange(newValue - value);
     }
@@ -37,16 +37,16 @@ const RangeSlider = ({value, onChange, orientation = 'horizontal', min = 0, max}
         document.body.style.userSelect = 'none';
         document.body.style.cursor = 'pointer';
 
-        let startPoint = convertMousePosToValue(e1.nativeEvent[orientation === 'vertical' ? 'offsetY' : 'offsetX']);
+        const startPoint = convertMousePosToValue(e1.nativeEvent[orientation === 'vertical' ? 'offsetY' : 'offsetX']);
 
         const handler = (e2: MouseEvent) => {
-            let currentPoint = convertMousePosToValue(
+            const currentPoint = convertMousePosToValue(
                 e2[orientation === 'vertical' ? 'clientY' : 'clientX'] -
                 // @ts-ignore
                 e1.target.getBoundingClientRect()[orientation === 'vertical' ? 'top' : 'left']
             );
 
-            let movement = (currentPoint - startPoint) * (orientation === 'vertical' ? -1 : 1);
+            const movement = (currentPoint - startPoint) * (orientation === 'vertical' ? -1 : 1);
 
             onChange(movement)
         }

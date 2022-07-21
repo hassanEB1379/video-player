@@ -28,7 +28,7 @@ const Popover = ({trigger, children, className}: Props) => {
         >
             {trigger(handleOpen)}
 
-            {open && <div style={{position: 'absolute', bottom: '110%', right: 0}}>{children}</div>}
+            {open && <div style={{position: 'absolute', bottom: '110%', right: '-50%', }}>{children}</div>}
         </div>
     );
 };
