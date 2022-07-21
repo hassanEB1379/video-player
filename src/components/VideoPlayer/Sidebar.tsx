@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import styles from '../../styles/video-player.module.css'
 import {RecentVideo, useRecentVideos} from '../../context/VideoPlayer/RecentVideos';
 import {useVideoSrc} from '../../context/VideoPlayer/VideoSrc';
+import {BsImage} from 'react-icons/bs';
+import {getFormattedTime} from '../../utils/getFormattedTime';
 
 interface Props {
     onHide: () => void,
@@ -41,13 +43,18 @@ const Sidebar = ({onHide, onShow, isFullscreen, showSidebar}: Props) => {
         >
             <ul>
                 <li>Recent</li>
+            </ul>
 
+            <ul className={styles.sidebarList}>
                 {recent.map((item: RecentVideo) => (
                     <li key={item.id}>
                         <button
+                            className={styles.sidebarListItem}
                             onClick={() => setVideoSrc(item.file)}
                         >
+                            <BsImage/>
                             {item.name}
+                            <p>{getFormattedTime(item.elapsedTime)}</p>
                         </button>
                     </li>
                 ))}

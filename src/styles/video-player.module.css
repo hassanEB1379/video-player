@@ -22,7 +22,7 @@
 
 .footer {
     background-color: var(--primary);
-    padding: 0 1rem;
+    padding: .5rem 1rem 0 1rem;
     width: 100%;
     font-size: .8rem;
     align-self: flex-end;
@@ -33,7 +33,22 @@
     height: 100%;
     z-index: 2147483648;
     width: 400px;
-    flex: 0 0 400px
+    flex: 0 0 400px;
+}
+
+.sidebarList {
+    margin-top: 1rem;
+    font-size: .8rem;
+}
+
+.sidebarListItem {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    width: 100%;
+    padding: .5rem 0 .5rem 1rem;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--trs-light);
 }
 
 .startMenu {
