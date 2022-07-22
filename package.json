@@ -1,18 +1,22 @@
 {
   "name": "video-player",
   "version": "1.0.0",
-  "description": "",
+  "homepage": "https://hassaneb1379.github.io/video-player/",
+  "description": "Video and audio player wep app",
   "main": "src/index.tsx",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix"
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "gh-pages": "^4.0.0",
     "localforage": "^1.10.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
