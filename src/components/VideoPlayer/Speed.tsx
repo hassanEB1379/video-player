@@ -17,6 +17,20 @@ const Speed = ({trigger, video}: Props) => {
 
     const handleSpeedChange = (changes: number) => {
         if(video && video.playbackRate) {
+            const newVal = video.playbackRate + changes;
+
+            if (newVal >= MAX_SPEED_RATE) {
+                video.playbackRate = MAX_SPEED_RATE;
+                setSpeed(MAX_SPEED_RATE);
+                return;
+            }
+
+            if (newVal <= MIN_SPEED_RATE) {
+                video.playbackRate = MIN_SPEED_RATE;
+                setSpeed(MIN_SPEED_RATE);
+                return;
+            }
+
             video.playbackRate += changes;
             setSpeed(p => p + changes)
         }
