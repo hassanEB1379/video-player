@@ -90,26 +90,26 @@ define(['./workbox-36b4d269'], (function (workbox) { 'use strict';
    */
 
   workbox.precacheAndRoute([{
-    "url": "15fd6a6d1ccdd51bb641.png",
+    "url": "video-player15fd6a6d1ccdd51bb641.png",
     "revision": null
   }, {
-    "url": "2929b1f3a187c804d4cc.png",
+    "url": "video-player2929b1f3a187c804d4cc.png",
     "revision": null
   }, {
-    "url": "2c9bd924397ac00b3c46.png",
+    "url": "video-player2c9bd924397ac00b3c46.png",
     "revision": null
   }, {
-    "url": "7e473a3bc14a732fda66.json",
+    "url": "video-player7e473a3bc14a732fda66.json",
     "revision": null
   }, {
-    "url": "images/android-chrome-192x192.png",
+    "url": "video-playerimages/android-chrome-192x192.png",
     "revision": "fe36f6d3be6d84fc649098f39ac44920"
   }, {
-    "url": "images/android-chrome-512x512.png",
+    "url": "video-playerimages/android-chrome-512x512.png",
     "revision": "c2f79b4ac30aff2a5a42b8cfbf1d1eeb"
   }, {
-    "url": "index.html",
-    "revision": "54170990512e7f8970b4f0bf314c1464"
+    "url": "video-playerindex.html",
+    "revision": "1486e8ae6aaf53788f28a2101a5d66d2"
   }], {});
 
 }));
