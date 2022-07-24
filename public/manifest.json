@@ -16,5 +16,6 @@
   "theme_color":"#06283D",
   "background_color":"#06283D",
   "display":"standalone",
-  "start_url": "."
+  "start_url": ".",
+  "id": "/video-player"
 }
