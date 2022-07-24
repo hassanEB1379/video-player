@@ -32,7 +32,7 @@ const FilePicker = ({label, onChange}: Props) => {
                 ref={input}
                 name='choose-file'
                 type='file'
-                accept='mkv,mp4'
+                accept='.mkv, video/*'
                 style={{display: 'none'}}
             />
         </>
