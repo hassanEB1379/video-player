@@ -11,9 +11,8 @@ const StartMenu = ({onSelectFile}: Props) => {
         <div className={styles.startMenu}>
             <ul>
                 <li>
-                    Open{' '}
                     <FilePicker
-                        label='file'
+                        label='Open file'
                         onChange={onSelectFile}
                     />
                 </li>
