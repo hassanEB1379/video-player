@@ -43,6 +43,7 @@ const VideoPlayer = () => {
                             src={src}
                             ref={player}
                             title=''
+                            disablePictureInPicture
                         >
                             <track
                                 label='subtitles'
