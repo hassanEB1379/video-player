@@ -6,7 +6,7 @@ import {srt2vtt} from '../../utils/srt2vtt';
 import styles from '../../styles/video-player.module.css';
 import {
     BsArrowClockwise,
-    BsArrowCounterclockwise, BsFillVolumeDownFill,
+    BsArrowCounterclockwise, BsFillVolumeDownFill, BsFillVolumeMuteFill, BsFillVolumeUpFill,
     BsFullscreen,
     BsFullscreenExit,
     BsPauseFill,
@@ -23,7 +23,7 @@ interface Props {
     setSubtitleSrc: React.Dispatch<React.SetStateAction<string>>,
     onToggleSidebar: () => void,
     onToggleFullscreen: (elm: HTMLElement) => void,
-    isFullscreen: boolean
+    isFullscreen: boolean,
 }
 
 const Footer = ({
@@ -32,7 +32,7 @@ const Footer = ({
     fullscreenTarget,
     onToggleSidebar,
     onToggleFullscreen,
-    isFullscreen
+    isFullscreen,
 }: Props) => {
     const [paused, setPaused] = useState(true);
     const [showFooter, setShowFooter] = useState(true);
@@ -192,12 +192,18 @@ const Footer = ({
 
                     <Volume
                         video={player.current}
-                        trigger={(open) => (
+                        trigger={(open, volume) => (
                             <button
                                 title='volume'
                                 onClick={open}
                             >
-                                <BsFillVolumeDownFill/>
+                                {volume > 0.5 ?
+                                    <BsFillVolumeUpFill/> :
+                                    volume > 0 ?
+                                        <BsFillVolumeDownFill/> :
+                                        volume === 0 ?
+                                            <BsFillVolumeMuteFill/> :
+                                            null}
                             </button>
                         )}
                     />

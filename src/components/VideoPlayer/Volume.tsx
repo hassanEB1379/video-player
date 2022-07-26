@@ -5,7 +5,7 @@ import Popover from '../Popover/Popover';
 import styles from '../../styles/video-player.module.css';
 
 interface Props {
-    trigger: (handleOpen: React.MouseEventHandler) => React.ReactNode,
+    trigger: (handleOpen: React.MouseEventHandler, volume: number) => React.ReactNode,
     video: HTMLVideoElement
 }
 
@@ -36,7 +36,7 @@ const Volume = ({trigger, video}: Props) => {
     }
 
     return (
-        <Popover trigger={trigger}>
+        <Popover trigger={(open) => trigger(open, volume)}>
             <div className={styles.box}>
                 <p>{volume.toFixed(2)}</p>
                 <RangeSlider
