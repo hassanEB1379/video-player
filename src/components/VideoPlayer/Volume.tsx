@@ -15,7 +15,7 @@ const Volume = ({trigger, video}: Props) => {
     const [volume, setVolume] = useState(video?.volume || 1);
 
     const handleVolumeChange = (changes: number) => {
-        if(video && video.volume) {
+        if(video && 'volume' in video) {
             const newVal = video.volume + changes;
 
             if (newVal >= MAX_VOLUME_RATE) {
