@@ -12,6 +12,9 @@
     --secondary: var(--blue);
     --text: var(--light);
     --bg: var(--black);
+
+    /* other */
+    --divider: 1px solid var(--trs-light);
 }
 
 html,
