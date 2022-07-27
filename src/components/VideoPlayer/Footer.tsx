@@ -16,6 +16,8 @@ import {
     BsStopFill,
     BsWindow
 } from 'react-icons/bs';
+import {useShortcut} from '../../hooks/useShortcut';
+import {shortcuts} from '../../utils/shortcuts';
 
 interface Props {
     player: MutableRefObject<HTMLVideoElement>,
@@ -37,9 +39,9 @@ const Footer = ({
     const [paused, setPaused] = useState(true);
     const [showFooter, setShowFooter] = useState(true);
 
-    const play = () => {
+    const play = useShortcut('shift+x', () => {
         player.current.play().then(() => setPaused(false));
-    }
+    })
 
     const pause = () => {
         setPaused(true);
@@ -51,13 +53,18 @@ const Footer = ({
         player.current.currentTime = 0;
     }
 
-    const goFurther = (s: number) => {
-        player.current.currentTime += s;
-    }
+    const goFurther = useShortcut(shortcuts.GO_FURTHER, () => {
+        player.current.currentTime += 20;
+    });
 
-    const goBack = (s: number) => {
-        player.current.currentTime -= s;
-    }
+    const goBack = useShortcut(shortcuts.GO_BACK, () => {
+        player.current.currentTime -= 20;
+    });
+
+    const fullscreenToggle = useShortcut(
+        shortcuts.FULLSCREEN_TOGGLE,
+        () => onToggleFullscreen(fullscreenTarget.current)
+    )
 
     const addSubtitles = async () => {
         const options = {
@@ -118,8 +125,8 @@ const Footer = ({
             <div className={styles.controlsContainer}>
                 <div className={styles.buttonGroup}>
                     <button
-                        onClick={() => onToggleFullscreen(fullscreenTarget.current)}
-                        title='fullscreen mode'
+                        onClick={fullscreenToggle}
+                        title={`fullscreen (${shortcuts.FULLSCREEN_TOGGLE})`}
                     >
                         {isFullscreen ? <BsFullscreenExit/> : <BsFullscreen/>}
                     </button>
@@ -134,8 +141,8 @@ const Footer = ({
 
                 <div className={styles.buttonGroup}>
                     <button
-                        title='20s behind'
-                        onClick={() => goBack(20)}
+                        title={`20s behind (${shortcuts.GO_BACK})`}
+                        onClick={goBack}
                     >
                         <BsArrowCounterclockwise/>
                     </button>
@@ -162,8 +169,8 @@ const Footer = ({
                     </button>
 
                     <button
-                        title='20s further'
-                        onClick={() => goFurther(20)}
+                        title={`20s further (${shortcuts.GO_FURTHER})`}
+                        onClick={goFurther}
                     >
                         <BsArrowClockwise/>
                     </button>
