@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import RangeSlider from '../RangeSlider/RangeSlider';
 import Popover from '../Popover/Popover';
+import {useVideoVolume} from '../../context/VideoPlayer/Volume';
+import {useShortcut} from '../../hooks/useShortcut';
+import {shortcuts} from '../../utils/shortcuts';
 
 import styles from '../../styles/video-player.module.css';
+
 
 interface Props {
     trigger: (handleOpen: React.MouseEventHandler, volume: number) => React.ReactNode,
@@ -12,11 +16,11 @@ interface Props {
 const MAX_VOLUME_RATE = 1;
 
 const Volume = ({trigger, video}: Props) => {
-    const [volume, setVolume] = useState(video?.volume || 1);
+    const {volume, setVolume} = useVideoVolume();
 
-    const handleVolumeChange = (changes: number) => {
+    const changeVolume = (value: number) => {
         if(video && 'volume' in video) {
-            const newVal = video.volume + changes;
+            const newVal = video.volume + value;
 
             if (newVal >= MAX_VOLUME_RATE) {
                 video.volume = MAX_VOLUME_RATE;
@@ -30,10 +34,23 @@ const Volume = ({trigger, video}: Props) => {
                 return;
             }
 
-            video.volume += changes;
-            setVolume(p => p + changes)
+            video.volume += value;
+            setVolume((p: number) => p + value)
         }
     }
+
+    const handleVolumeRange = (changes: number) => {
+        changeVolume(changes);
+    }
+
+    // define shortcuts for increase and decrease volume
+    useShortcut(shortcuts.INCREASE_VOLUME, () => {
+        changeVolume(0.2);
+    })
+
+    useShortcut(shortcuts.DECREASE_VOLUME, () => {
+        changeVolume(-0.2);
+    })
 
     return (
         <Popover trigger={(open) => trigger(open, volume)}>
@@ -43,7 +60,7 @@ const Volume = ({trigger, video}: Props) => {
                     max={MAX_VOLUME_RATE}
                     orientation='vertical'
                     value={volume}
-                    onChange={handleVolumeChange}
+                    onChange={handleVolumeRange}
                 />
             </div>
         </Popover>
