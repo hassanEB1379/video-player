@@ -16,8 +16,8 @@ export function useShortcut(shortcut: string, fn: () => void) {
                 //@ts-ignore
                 keys.every(key => event[key] || event.key.toLowerCase() === key.toLowerCase())
             ){
-                fn();
                 event.preventDefault();
+                fn();
             }
         }
 
