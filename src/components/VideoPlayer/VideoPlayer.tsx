@@ -44,6 +44,8 @@ const VideoPlayer = () => {
                             ref={player}
                             title=''
                             disablePictureInPicture
+                            width={854}
+                            height={480}
                         >
                             <track
                                 label='subtitles'
