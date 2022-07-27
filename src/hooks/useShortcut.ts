@@ -26,7 +26,7 @@ export function useShortcut(shortcut: string, fn: () => void) {
         return () => {
             document.removeEventListener('keydown', listener);
         }
-    }, []);
+    }, [fn]);
 
     return fn;
 }
