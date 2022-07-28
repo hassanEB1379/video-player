@@ -6,5 +6,6 @@ export const shortcuts = {
     DECREASE_VOLUME: 'ArrowDown',
     INCREASE_SPEED: 'c',
     DECREASE_SPEED: 'x',
-    ADD_SUBTITLE: 'l'
+    ADD_SUBTITLE: 'l',
+    TOGGLE_SIDEBAR: 'F6'
 }

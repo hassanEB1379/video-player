@@ -66,6 +66,8 @@ const Footer = ({
         () => onToggleFullscreen(fullscreenTarget.current)
     )
 
+    const sidebarToggle = useShortcut(shortcuts.TOGGLE_SIDEBAR, () => onToggleSidebar());
+
     const addSubtitles = useShortcut(shortcuts.ADD_SUBTITLE, async () => {
         const options = {
             types: [
@@ -178,8 +180,8 @@ const Footer = ({
 
                 <div className={styles.buttonGroup}>
                     <button
-                        onClick={() => onToggleSidebar()}
-                        title='sidebar'
+                        onClick={sidebarToggle}
+                        title={`sidebar (${shortcuts.TOGGLE_SIDEBAR})`}
                     >
                         <BsReverseLayoutSidebarReverse/>
                     </button>
