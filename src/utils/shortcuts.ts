@@ -3,5 +3,7 @@ export const shortcuts = {
     GO_BACK: 'ArrowLeft',
     FULLSCREEN_TOGGLE: 'alt+Enter',
     INCREASE_VOLUME: 'ArrowUp',
-    DECREASE_VOLUME: 'ArrowDown'
+    DECREASE_VOLUME: 'ArrowDown',
+    INCREASE_SPEED: 'c',
+    DECREASE_SPEED: 'x',
 }
