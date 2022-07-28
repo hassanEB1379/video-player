@@ -66,7 +66,7 @@ const Footer = ({
         () => onToggleFullscreen(fullscreenTarget.current)
     )
 
-    const addSubtitles = async () => {
+    const addSubtitles = useShortcut(shortcuts.ADD_SUBTITLE, async () => {
         const options = {
             types: [
                 {
@@ -91,7 +91,7 @@ const Footer = ({
         const src = extension === 'vtt' ? URL.createObjectURL(file) : srt2vtt(text);
 
         setSubtitleSrc(src)
-    }
+    });
 
     const handleHideFooter = () => {
         if (isFullscreen) setShowFooter(false);
@@ -133,7 +133,7 @@ const Footer = ({
 
                     <button
                         onClick={addSubtitles}
-                        title='add subtitles'
+                        title={`add subtitles (${shortcuts.ADD_SUBTITLE.toUpperCase()})`}
                     >
                         <BsWindow/>
                     </button>
