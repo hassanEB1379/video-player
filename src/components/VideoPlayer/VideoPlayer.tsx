@@ -3,6 +3,7 @@ import styles from '../../styles/video-player.module.css';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import StartMenu from './StartMenu';
+import Message from './Message';
 import {useFullscreen} from '../../hooks/useFullscreen';
 import {useRecentVideos} from '../../context/VideoPlayer/RecentVideos';
 import {useVideoSrc} from '../../context/VideoPlayer/VideoSrc';
@@ -33,6 +34,8 @@ const VideoPlayer = () => {
             className={`${styles.container}`}
         >
             <div className={styles.player}>
+                <Message/>
+
                 {!src && <StartMenu onSelectFile={handleSelectFile}/>}
 
                 {src &&
