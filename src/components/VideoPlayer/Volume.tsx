@@ -3,10 +3,10 @@ import RangeSlider from '../RangeSlider/RangeSlider';
 import Popover from '../Popover/Popover';
 import {useVideoVolume} from '../../context/VideoPlayer/Volume';
 import {useShortcut} from '../../hooks/useShortcut';
+import {useVideoMessage} from '../../context/VideoPlayer/Message';
 import {shortcuts} from '../../utils/shortcuts';
 
 import styles from '../../styles/video-player.module.css';
-
 
 interface Props {
     trigger: (handleOpen: React.MouseEventHandler, volume: number) => React.ReactNode,
@@ -17,6 +17,7 @@ const MAX_VOLUME_RATE = 1;
 
 const Volume = ({trigger, video}: Props) => {
     const {volume, setVolume} = useVideoVolume();
+    const {pushMessage} = useVideoMessage();
 
     const changeVolume = (value: number) => {
         if(video && 'volume' in video) {
@@ -35,7 +36,7 @@ const Volume = ({trigger, video}: Props) => {
             }
 
             video.volume += value;
-            setVolume((p: number) => p + value)
+            setVolume((p: number) => p + value);
         }
     }
 
@@ -45,11 +46,13 @@ const Volume = ({trigger, video}: Props) => {
 
     // define shortcuts for increase and decrease volume
     useShortcut(shortcuts.INCREASE_VOLUME, () => {
-        changeVolume(0.2);
+        changeVolume(0.2)
+        pushMessage(`Volume ${video?.volume?.toFixed(2)}`);
     })
 
     useShortcut(shortcuts.DECREASE_VOLUME, () => {
         changeVolume(-0.2);
+        pushMessage(`Volume ${video?.volume?.toFixed(2)}`);
     })
 
     return (
