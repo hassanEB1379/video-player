@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getFormattedTime} from '@app/utils';
 import {RangeSlider} from '@app/range-slider';
-import styles from '../Player.module.css';
+import styles from './Timeline.module.css';
 
 interface Props {
     video: HTMLVideoElement;

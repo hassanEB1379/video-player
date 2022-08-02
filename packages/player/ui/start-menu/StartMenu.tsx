@@ -1,6 +1,6 @@
 import React from 'react';
 import {FilePicker} from '@app/file-picker';
-import styles from '../Player.module.css';
+import styles from './StartMenu.module.css';
 
 interface Props {
     onSelectFile: (file: File) => void,

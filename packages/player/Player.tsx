@@ -1,18 +1,18 @@
 import React, { useRef, useState} from 'react';
 import {useFullscreen} from '@app/hooks';
 import styles from './Player.module.css';
-import Footer from './footer/Footer';
-import Sidebar from './sidebar/Sidebar';
-import StartMenu from './start-menu/StartMenu';
-import Message from './message/Message';
-import {useRecentVideos} from './context/recent-videos';
-import {useVideoSrc} from './context/video-src';
+import Footer from './ui/footer/Footer';
+import Sidebar from './ui/sidebar/Sidebar';
+import StartMenu from './ui/start-menu/StartMenu';
+import Message from './ui/message/Message';
+import {useAddToRecent} from './state/recent-videos';
+import {useVideoSrc} from './state/video-src';
 
 export const Player = () => {
     const [showSidebar, setShowSidebar] = useState(false);
     const [subtitleSrc, setSubtitleSrc] = useState('');
     const {src, setVideoSrc} = useVideoSrc();
-    const {add: addToRecent} = useRecentVideos();
+    const addToRecent = useAddToRecent();
 
     const player = useRef<HTMLVideoElement>(null);
     const playerContainer = useRef<HTMLDivElement>(null);

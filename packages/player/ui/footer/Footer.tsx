@@ -4,7 +4,7 @@ import {useShortcut} from '@app/hooks';
 import Timeline from '../timeline/Timeline';
 import Speed from '../speed/Speed';
 import Volume from '../volume/Volume';
-import styles from '../Player.module.css';
+import styles from './Footer.module.css';
 import {
     BsArrowClockwise,
     BsArrowCounterclockwise, BsFillVolumeDownFill, BsFillVolumeMuteFill, BsFillVolumeUpFill,
