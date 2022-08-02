@@ -1,0 +1,33 @@
+.sidebar {
+    background-color: var(--primary);
+    height: 100%;
+    z-index: 2147483648;
+    width: 400px;
+    flex: 0 0 400px;
+    border-left: var(--divider);
+}
+
+.sidebarTabs {
+    padding: 1rem;
+}
+
+.sidebarList {
+    margin-top: 1rem;
+    font-size: .8rem;
+}
+
+.sidebarListItem {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    width: 100%;
+    padding: .5rem 0 .5rem 1rem;
+    box-sizing: border-box;
+}
+
+@media (display-mode: fullscreen) {
+    .sidebar {
+        position: absolute;
+        right: 0;
+    }
+}

@@ -20,74 +20,6 @@
     justify-content: center;
 }
 
-.footer {
-    background-color: var(--primary);
-    padding: .5rem 1rem 0 1rem;
-    width: 100%;
-    font-size: .8rem;
-    align-self: flex-end;
-    border-top: var(--divider);
-}
-
-.sidebar {
-    background-color: var(--primary);
-    height: 100%;
-    z-index: 2147483648;
-    width: 400px;
-    flex: 0 0 400px;
-    border-left: var(--divider);
-}
-
-.sidebarTabs {
-    padding: 1rem;
-}
-
-.sidebarList {
-    margin-top: 1rem;
-    font-size: .8rem;
-}
-
-.sidebarListItem {
-    display: flex;
-    align-items: center;
-    gap: .5em;
-    width: 100%;
-    padding: .5rem 0 .5rem 1rem;
-    box-sizing: border-box;
-}
-
-.startMenu {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-}
-
-.startMenu > ul > li {
-    padding: .5rem 0;
-    cursor: pointer;
-    list-style-type: disc;
-}
-
-.controlsContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 3.5rem;
-}
-
-.buttonGroup {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.timelineContainer {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
 
 .box {
     background-color: var(--black);
@@ -100,16 +32,6 @@
     align-items: center;
 }
 
-.message {
-    color: var(--secondary);
-    font-size: 1.5rem;
-    font-weight: bolder;
-    text-shadow:  0 2px 0 black;
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-}
-
 @media (display-mode: fullscreen) {
     .player video {
         width: 100%;
@@ -119,11 +41,6 @@
     .footer {
         position: absolute;
         bottom: 0;
-    }
-
-    .sidebar {
-        position: absolute;
-        right: 0;
     }
 }
 
