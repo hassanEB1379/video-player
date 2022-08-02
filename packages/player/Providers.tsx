@@ -1,9 +1,9 @@
 import React from 'react';
-import {RecentVideosProvider} from './context/recent-videos';
-import {VideoSrcProvider} from './context/video-src';
-import {VideoMessageProvider} from './context/message';
-import {SpeedProvider} from './context/speed';
-import {VolumeProvider} from './context/volume';
+import {RecentVideosProvider} from './state/recent-videos';
+import {VideoSrcProvider} from './state/video-src';
+import {VideoMessageProvider} from './state/message';
+import {SpeedProvider} from './state/speed';
+import {VolumeProvider} from './state/volume';
 import {Player} from './Player';
 
 export const Providers = () => {
