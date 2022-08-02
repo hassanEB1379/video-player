@@ -1,1 +1,1 @@
-export {Providers as default} from './Providers';
+export {PlayerWithProviders as default} from './Player';

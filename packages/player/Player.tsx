@@ -7,8 +7,10 @@ import StartMenu from './ui/start-menu/StartMenu';
 import Message from './ui/message/Message';
 import {useAddToRecent} from './state/recent-videos';
 import {useVideoSrc} from './state/video-src';
+import {withProviders} from './shared/withProviders';
+import {providers} from './providers';
 
-export const Player = () => {
+const Player = () => {
     const [showSidebar, setShowSidebar] = useState(false);
     const [subtitleSrc, setSubtitleSrc] = useState('');
     const {src, setVideoSrc} = useVideoSrc();
@@ -79,3 +81,5 @@ export const Player = () => {
         </div>
     );
 };
+
+export const PlayerWithProviders = withProviders(Player, providers)
