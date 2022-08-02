@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
-import styles from '../Player.module.css'
-import {RecentVideo, useRecentVideos} from '../context/recent-videos';
-import {useVideoSrc} from '../context/video-src';
+import styles from './Sidebar.module.css';
+import {useRecentVideos} from '../../state/recent-videos';
+import {RecentVideo} from '../../shared/types';
+import {useVideoSrc} from '../../state/video-src';
 import {BsImage} from 'react-icons/bs';
 import {getFormattedTime} from '@app/utils';
 
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const Sidebar = ({onHide, onShow, isFullscreen, showSidebar}: Props) => {
-    const {recent} = useRecentVideos();
+    const recent = useRecentVideos();
     const {setVideoSrc} = useVideoSrc();
 
     useEffect(() => {

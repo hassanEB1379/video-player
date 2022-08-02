@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from '../Player.module.css';
-import {useVideoMessage} from '../context/message';
+import styles from './Message.module.css';
+import {useMessage} from '../../state/message';
 
 const Message = () => {
-    const {msg} = useVideoMessage();
+    const msg = useMessage();
 
     return (
         msg &&

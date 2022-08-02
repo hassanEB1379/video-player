@@ -3,10 +3,10 @@ import {RangeSlider} from '@app/range-slider';
 import {Popover} from '@app/popover';
 import {shortcuts} from '@app/utils';
 import {useShortcut} from '@app/hooks';
-import {useVideoVolume} from '../context/volume';
-import {useVideoMessage} from '../context/message';
+import {useDispatchVideoVolume, useVideoVolume} from '../../state/volume';
+import {usePushMessage} from '../../state/message';
 
-import styles from '../Player.module.css';
+import styles from '../../Player.module.css';
 
 interface Props {
     trigger: (handleOpen: React.MouseEventHandler, volume: number) => React.ReactNode,
@@ -16,8 +16,9 @@ interface Props {
 const MAX_VOLUME_RATE = 1;
 
 const Volume = ({trigger, video}: Props) => {
-    const {volume, setVolume} = useVideoVolume();
-    const {pushMessage} = useVideoMessage();
+    const volume = useVideoVolume();
+    const setVolume = useDispatchVideoVolume();
+    const pushMessage = usePushMessage();
 
     const changeVolume = (value: number) => {
         if(video && 'volume' in video) {

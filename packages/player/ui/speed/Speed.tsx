@@ -3,9 +3,9 @@ import {RangeSlider} from '@app/range-slider';
 import {Popover} from '@app/popover';
 import {useShortcut} from '@app/hooks';
 import {shortcuts} from '@app/utils';
-import {useVideoSpeed} from '../context/speed';
-import {useVideoMessage} from '../context/message';
-import styles from '../Player.module.css';
+import {useDispatchVideoSpeed, useVideoSpeed} from '../../state/speed';
+import {usePushMessage} from '../../state/message';
+import styles from '../../Player.module.css';
 
 interface Props {
     trigger: (handleOpen: React.MouseEventHandler) => React.ReactNode,
@@ -16,8 +16,9 @@ const MAX_SPEED_RATE = 4;
 const MIN_SPEED_RATE = 0.1;
 
 const Speed = ({trigger, video}: Props) => {
-    const {speed, setSpeed} = useVideoSpeed();
-    const {pushMessage} = useVideoMessage();
+    const speed = useVideoSpeed();
+    const setSpeed = useDispatchVideoSpeed();
+    const pushMessage = usePushMessage();
 
     const changeSpeed = (value: number) => {
         if(video && video.playbackRate) {
