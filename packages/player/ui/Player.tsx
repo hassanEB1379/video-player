@@ -1,14 +1,14 @@
 import React, { useRef, useState} from 'react';
 import {useFullscreen} from '@app/hooks';
 import styles from './Player.module.css';
-import Footer from './ui/footer/Footer';
-import Sidebar from './ui/sidebar/Sidebar';
-import StartMenu from './ui/start-menu/StartMenu';
-import Message from './ui/message/Message';
-import {useAddToRecent} from './state/recent-videos';
-import {useVideoSrc} from './state/video-src';
-import {withProviders} from './shared/withProviders';
-import {providers} from './providers';
+import Footer from './footer/Footer';
+import Sidebar from './sidebar/Sidebar';
+import StartMenu from './start-menu/StartMenu';
+import Message from './message/Message';
+import {useAddToRecent} from '../state/recent-videos';
+import {useVideoSrc} from '../state/video-src';
+import {withProviders} from '../shared/withProviders';
+import {providers} from '../shared/providers';
 
 const Player = () => {
     const [showSidebar, setShowSidebar] = useState(false);
