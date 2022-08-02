@@ -60,7 +60,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve('public/index.html')
+            template: path.resolve('src/index.html')
         }),
         new WorkboxPlugin.GenerateSW({
             clientsClaim: true,
@@ -68,7 +68,7 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                {from: 'public/images', to: 'images'}
+                {from: 'src/images', to: 'images'}
             ]
         }),
     ],

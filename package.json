@@ -4,6 +4,8 @@
   "homepage": "https://hassaneb1379.github.io/video-player/",
   "description": "Video and audio player wep app",
   "main": "src/index.tsx",
+  "private": true,
+  "workspaces": ["packages/**"],
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
