@@ -50,7 +50,7 @@
       "error",
       4
     ],
-    "linebreak-style": 1,
+    "linebreak-style": [1, "windows"],
     "quotes": [
       "error",
       "single"
