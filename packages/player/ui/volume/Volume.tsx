@@ -6,7 +6,7 @@ import {useShortcut} from '@app/hooks';
 import {useDispatchVideoVolume, useVideoVolume} from '../../state/volume';
 import {usePushMessage} from '../../state/message';
 
-import styles from '../Player.module.css';
+import styles from '../video-section/VideoSection.module.css';
 
 interface Props {
     trigger: (handleOpen: React.MouseEventHandler, volume: number) => React.ReactNode,

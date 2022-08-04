@@ -5,7 +5,7 @@ import {useShortcut} from '@app/hooks';
 import {shortcuts} from '@app/utils';
 import {useDispatchVideoSpeed, useVideoSpeed} from '../../state/speed';
 import {usePushMessage} from '../../state/message';
-import styles from '../Player.module.css';
+import styles from '../video-section/VideoSection.module.css';
 
 interface Props {
     trigger: (handleOpen: React.MouseEventHandler) => React.ReactNode,

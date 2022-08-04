@@ -1,84 +1,29 @@
-import React, { useRef, useState} from 'react';
-import {useFullscreen} from '@app/hooks';
-import styles from './Player.module.css';
-import Footer from './footer/Footer';
-import Sidebar from './sidebar/Sidebar';
+import React, {useRef} from 'react';
+import PlayerLayout from './layout/PlayerLayout';
 import StartMenu from './start-menu/StartMenu';
 import Message from './message/Message';
-import {useAddToRecent} from '../state/recent-videos';
+import VideoSection from './video-section/VideoSection';
 import {useVideoSrc} from '../state/video-src';
 import {withProviders} from '../shared/withProviders';
 import {providers} from '../shared/providers';
 
 const Player = () => {
-    const [showSidebar, setShowSidebar] = useState(false);
-    const [subtitleSrc, setSubtitleSrc] = useState('');
-    const {src, setVideoSrc} = useVideoSrc();
-    const addToRecent = useAddToRecent();
+    const {src} = useVideoSrc();
 
     const player = useRef<HTMLVideoElement>(null);
-    const playerContainer = useRef<HTMLDivElement>(null);
-
-    const {toggleFullscreen, isFullscreen} = useFullscreen();
-
-    const handleToggleSidebar = (state?: boolean | undefined) => {
-        setShowSidebar(p => state ?? !p);
-    }
-
-    const handleSelectFile = (file: File) => {
-        setVideoSrc(file);
-        addToRecent(file);
-    }
 
     return (
-        <div
-            ref={playerContainer}
-            className={`${styles.container}`}
-        >
-            <div className={styles.player}>
-                <Message/>
+        <PlayerLayout player={player}>
+            <Message/>
 
-                {!src && <StartMenu onSelectFile={handleSelectFile}/>}
+            {!src && <StartMenu/>}
 
-                {src &&
-                        <div className={styles.video}>
-                            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-                            <video
-                                preload='metadata'
-                                src={src}
-                                ref={player}
-                                title=''
-                                disablePictureInPicture
-                                width={854}
-                                height={480}
-                            >
-                                <track
-                                    label='subtitles'
-                                    src={subtitleSrc}
-                                    kind='subtitles'
-                                    srcLang='en'
-                                    default
-                                />
-                            </video>
-                        </div>}
-
-                <Footer
-                    player={player}
-                    fullscreenTarget={playerContainer}
-                    setSubtitleSrc={setSubtitleSrc}
-                    onToggleSidebar={handleToggleSidebar}
-                    onToggleFullscreen={toggleFullscreen}
-                    isFullscreen={isFullscreen}
-                />
-            </div>
-
-            <Sidebar
-                showSidebar={showSidebar}
-                isFullscreen={isFullscreen}
-                onShow={() => handleToggleSidebar(true)}
-                onHide={() => handleToggleSidebar(false)}
-            />
-        </div>
+            {src &&
+                <VideoSection
+                    ref={player}
+                    src={src}
+                />}
+        </PlayerLayout>
     );
 };
 
