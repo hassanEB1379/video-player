@@ -1,30 +1,29 @@
 import React, {useRef} from 'react';
+import {withProviders, VideoRefProvider, providers} from '@app/player/shared';
 import PlayerLayout from './layout/PlayerLayout';
 import StartMenu from './start-menu/StartMenu';
+import Video from './video/Video';
 import Message from './message/Message';
-import VideoSection from './video-section/VideoSection';
 import {useVideoSrc} from '../state/video-src';
-import {withProviders} from '../shared/withProviders';
-import {providers} from '../shared/providers';
 
-const Player = () => {
+export const Player = withProviders(() => {
     const {src} = useVideoSrc();
 
-    const player = useRef<HTMLVideoElement>(null);
+    const video = useRef<HTMLVideoElement>(null);
 
     return (
-        <PlayerLayout player={player}>
-            <Message/>
+        <VideoRefProvider value={video}>
+            <PlayerLayout>
+                <Message/>
 
-            {!src && <StartMenu/>}
+                {!src && <StartMenu/>}
 
-            {src &&
-                <VideoSection
-                    ref={player}
-                    src={src}
-                />}
-        </PlayerLayout>
+                {src &&
+                    <Video
+                        ref={video}
+                        src={src}
+                    />}
+            </PlayerLayout>
+        </VideoRefProvider>
     );
-};
-
-export const PlayerWithProviders = withProviders(Player, providers)
+}, providers);

@@ -1,6 +1,5 @@
 import React, {MutableRefObject, useEffect, useState} from 'react';
-import {srt2vtt,shortcuts} from '@app/utils';
-import {useShortcut} from '@app/hooks';
+import {srt2vtt,shortcuts, useShortcut, useVideoRef} from '@app/player/shared';
 import Timeline from '../timeline/Timeline';
 import Speed from '../speed/Speed';
 import Volume from '../volume/Volume';
@@ -17,20 +16,16 @@ import {
     BsStopFill,
     BsWindow
 } from 'react-icons/bs';
+import {useSubtitleDispatch} from '../../state/subtitle';
 
 interface Props {
-    player: MutableRefObject<HTMLVideoElement>,
     fullscreenTarget: MutableRefObject<HTMLElement>,
-    setSubtitleSrc: React.Dispatch<React.SetStateAction<string>>,
     onToggleSidebar: () => void,
-    onToggleFullscreen: (elm: HTMLElement) => void,
+    onToggleFullscreen: () => void,
     isFullscreen: boolean,
 }
 
 const Footer = ({
-    player,
-    setSubtitleSrc,
-    fullscreenTarget,
     onToggleSidebar,
     onToggleFullscreen,
     isFullscreen,
@@ -38,31 +33,35 @@ const Footer = ({
     const [paused, setPaused] = useState(true);
     const [showFooter, setShowFooter] = useState(true);
 
+    const setSubtitle = useSubtitleDispatch();
+
+    const video = useVideoRef();
+
     const play = useShortcut('shift+x', () => {
-        player.current.play().then(() => setPaused(false));
+        video.current.play().then(() => setPaused(false));
     })
 
     const pause = () => {
         setPaused(true);
-        player.current.pause();
+        video.current.pause();
     }
 
     const stop = () => {
         pause();
-        player.current.currentTime = 0;
+        video.current.currentTime = 0;
     }
 
     const goFurther = useShortcut(shortcuts.GO_FURTHER, () => {
-        player.current.currentTime += 20;
+        video.current.currentTime += 20;
     });
 
     const goBack = useShortcut(shortcuts.GO_BACK, () => {
-        player.current.currentTime -= 20;
+        video.current.currentTime -= 20;
     });
 
     const fullscreenToggle = useShortcut(
         shortcuts.FULLSCREEN_TOGGLE,
-        () => onToggleFullscreen(fullscreenTarget.current)
+        onToggleFullscreen
     )
 
     const sidebarToggle = useShortcut(shortcuts.TOGGLE_SIDEBAR, () => onToggleSidebar());
@@ -91,7 +90,7 @@ const Footer = ({
 
         const src = extension === 'vtt' ? URL.createObjectURL(file) : srt2vtt(text);
 
-        setSubtitleSrc(src)
+        setSubtitle(src)
     });
 
     const handleHideFooter = () => {
@@ -121,7 +120,7 @@ const Footer = ({
             onMouseLeave={handleHideFooter}
             className={styles.footer}
         >
-            <Timeline video={player.current}/>
+            <Timeline video={video.current}/>
 
             <div className={styles.controlsContainer}>
                 <div className={styles.buttonGroup}>
@@ -186,7 +185,7 @@ const Footer = ({
                     </button>
 
                     <Speed
-                        video={player.current}
+                        video={video.current}
                         trigger={(open) => (
                             <button
                                 onClick={open}
@@ -199,7 +198,7 @@ const Footer = ({
 
 
                     <Volume
-                        video={player.current}
+                        video={video.current}
                         trigger={(open, volume) => (
                             <button
                                 title='volume'

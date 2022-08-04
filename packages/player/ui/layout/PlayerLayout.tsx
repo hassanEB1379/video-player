@@ -1,19 +1,15 @@
 import React, {useRef, useState} from 'react';
-import {useFullscreen} from '@app/hooks';
+import {useFullscreen} from '@app/player/shared';
 import Footer from '../footer/Footer';
 import Sidebar from '../sidebar/Sidebar';
-import styles from './PlayerLayout.module.css'
-import {useSubtitleDispatch} from '../../state/subtitle';
+import styles from './PlayerLayout.module.css';
 
 interface Props {
     children: React.ReactNode,
-    player: React.MutableRefObject<HTMLVideoElement>,
 }
 
-const PlayerLayout = ({children, player}: Props) => {
+const PlayerLayout = ({children}: Props) => {
     const [showSidebar, setShowSidebar] = useState(false);
-
-    const setSubtitle = useSubtitleDispatch();
 
     const playerContainer = useRef<HTMLDivElement>(null);
 
@@ -21,6 +17,10 @@ const PlayerLayout = ({children, player}: Props) => {
 
     const handleToggleSidebar = (state?: boolean | undefined) => {
         setShowSidebar(p => state ?? !p);
+    }
+
+    const handleToggleFullscreen = () => {
+        toggleFullscreen(playerContainer.current)
     }
 
     return (
@@ -32,11 +32,9 @@ const PlayerLayout = ({children, player}: Props) => {
                 {children}
 
                 <Footer
-                    player={player}
                     fullscreenTarget={playerContainer}
-                    setSubtitleSrc={setSubtitle}
                     onToggleSidebar={handleToggleSidebar}
-                    onToggleFullscreen={toggleFullscreen}
+                    onToggleFullscreen={handleToggleFullscreen}
                     isFullscreen={isFullscreen}
                 />
             </div>
