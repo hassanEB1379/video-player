@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {useWhenClickOutside} from '@app/hooks';
+import {useWhenClickOutside} from '@app/shared';
 
 interface Props {
     trigger: (open: React.MouseEventHandler) => React.ReactNode,

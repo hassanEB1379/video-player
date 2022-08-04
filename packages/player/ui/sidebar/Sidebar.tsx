@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
-import styles from './Sidebar.module.css';
+import {getFormattedTime, RecentVideo} from '@app/player/shared';
 import {useRecentVideos} from '../../state/recent-videos';
-import {RecentVideo} from '../../shared/types';
 import {useVideoSrc} from '../../state/video-src';
 import {BsImage} from 'react-icons/bs';
-import {getFormattedTime} from '@app/utils';
+import styles from './Sidebar.module.css';
 
 interface Props {
     onHide: () => void,
@@ -19,7 +18,6 @@ const Sidebar = ({onHide, onShow, isFullscreen, showSidebar}: Props) => {
 
     useEffect(() => {
         const listener = (e: MouseEvent) => {
-            console.log(e.clientX, window.innerWidth)
             if (e.clientX >= window.innerWidth - 10) {
                 onShow();
             }

@@ -1,11 +1,10 @@
 import React from 'react';
 import {RangeSlider} from '@app/range-slider';
 import {Popover} from '@app/popover';
-import {useShortcut} from '@app/hooks';
-import {shortcuts} from '@app/utils';
+import {useShortcut, shortcuts} from '@app/player/shared';
 import {useDispatchVideoSpeed, useVideoSpeed} from '../../state/speed';
 import {usePushMessage} from '../../state/message';
-import styles from '../video-section/VideoSection.module.css';
+import styles from '../video/Video.module.css';
 
 interface Props {
     trigger: (handleOpen: React.MouseEventHandler) => React.ReactNode,
