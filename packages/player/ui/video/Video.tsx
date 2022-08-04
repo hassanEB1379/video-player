@@ -1,5 +1,5 @@
 import React, {forwardRef} from 'react';
-import styles from './VideoSection.module.css';
+import styles from './Video.module.css';
 import {useSubtitle} from '../../state/subtitle';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 // eslint-disable-next-line react/display-name
-const VideoSection = forwardRef<HTMLVideoElement, Props>((
+const Video = forwardRef<HTMLVideoElement, Props>((
     {src},
     ref
 ) => {
@@ -37,4 +37,4 @@ const VideoSection = forwardRef<HTMLVideoElement, Props>((
     );
 });
 
-export default VideoSection;
+export default Video;
