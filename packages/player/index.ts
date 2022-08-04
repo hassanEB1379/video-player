@@ -1,1 +1,1 @@
-export {PlayerWithProviders as default} from './ui/Player';
+export {Player as default} from './ui/Player';
