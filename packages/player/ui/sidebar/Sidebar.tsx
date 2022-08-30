@@ -1,45 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {getFormattedTime, RecentVideo} from '@app/player/shared';
 import {useRecentVideos} from '../../state/recent-videos';
 import {useVideoSrc} from '../../state/video-src';
 import {BsImage} from 'react-icons/bs';
 import styles from './Sidebar.module.css';
 
-interface Props {
-    onHide: () => void,
-    onShow: () => void,
-    isFullscreen: boolean,
-    showSidebar: boolean
-}
-
-const Sidebar = ({onHide, onShow, isFullscreen, showSidebar}: Props) => {
+const Sidebar = () => {
     const recent = useRecentVideos();
     const {setVideoSrc} = useVideoSrc();
 
-    useEffect(() => {
-        const listener = (e: MouseEvent) => {
-            if (e.clientX >= window.innerWidth - 10) {
-                onShow();
-            }
-        };
-
-        if (isFullscreen) {
-            onHide();
-            document.addEventListener('mousemove', listener);
-        }
-        else onShow()
-
-        return () => {
-            if (isFullscreen) document.removeEventListener('mousemove', listener)
-        };
-    }, [isFullscreen])
-
     return (
-        <aside
-            style={{display: showSidebar ? 'block' : 'none'}}
-            onMouseLeave={() => isFullscreen && onHide()}
-            className={styles.sidebar}
-        >
+        <aside className={styles.sidebar}>
             <ul className={styles.sidebarTabs}>
                 <li>Recent</li>
             </ul>

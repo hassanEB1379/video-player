@@ -1,5 +1,5 @@
-import React, {useRef, useState} from 'react';
-import {useFullscreen} from '@app/player/shared';
+import React, {useRef} from 'react';
+import {useFullscreen, HideOnFullscreen} from '@app/player/shared';
 import Footer from '../footer/Footer';
 import Sidebar from '../sidebar/Sidebar';
 import styles from './PlayerLayout.module.css';
@@ -9,15 +9,9 @@ interface Props {
 }
 
 const PlayerLayout = ({children}: Props) => {
-    const [showSidebar, setShowSidebar] = useState(false);
-
     const playerContainer = useRef<HTMLDivElement>(null);
 
     const {toggleFullscreen, isFullscreen} = useFullscreen();
-
-    const handleToggleSidebar = (state?: boolean | undefined) => {
-        setShowSidebar(p => state ?? !p);
-    }
 
     const handleToggleFullscreen = () => {
         toggleFullscreen(playerContainer.current)
@@ -31,20 +25,23 @@ const PlayerLayout = ({children}: Props) => {
             <div className={styles.player}>
                 {children}
 
-                <Footer
-                    fullscreenTarget={playerContainer}
-                    onToggleSidebar={handleToggleSidebar}
-                    onToggleFullscreen={handleToggleFullscreen}
+                <HideOnFullscreen
                     isFullscreen={isFullscreen}
-                />
+                    showOnMouseMove={(e) => e.clientY >= window.innerHeight - 10}
+                >
+                    <Footer
+                        isFullscreen={isFullscreen}
+                        onToggleFullscreen={handleToggleFullscreen}
+                    />
+                </HideOnFullscreen>
             </div>
 
-            <Sidebar
-                showSidebar={showSidebar}
+            <HideOnFullscreen
                 isFullscreen={isFullscreen}
-                onShow={() => handleToggleSidebar(true)}
-                onHide={() => handleToggleSidebar(false)}
-            />
+                showOnMouseMove={(e) => e.clientX >= window.innerWidth - 10}
+            >
+                <Sidebar/>
+            </HideOnFullscreen>
         </div>
     );
 };

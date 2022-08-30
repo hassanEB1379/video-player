@@ -1,4 +1,4 @@
-import React, {MutableRefObject, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {srt2vtt,shortcuts, useShortcut, useVideoRef} from '@app/player/shared';
 import Timeline from '../timeline/Timeline';
 import Speed from '../speed/Speed';
@@ -11,7 +11,6 @@ import {
     BsFullscreenExit,
     BsPauseFill,
     BsPlayFill,
-    BsReverseLayoutSidebarReverse,
     BsSpeedometer,
     BsStopFill,
     BsWindow
@@ -19,19 +18,12 @@ import {
 import {useSubtitleDispatch} from '../../state/subtitle';
 
 interface Props {
-    fullscreenTarget: MutableRefObject<HTMLElement>,
-    onToggleSidebar: () => void,
     onToggleFullscreen: () => void,
-    isFullscreen: boolean,
+    isFullscreen: boolean
 }
 
-const Footer = ({
-    onToggleSidebar,
-    onToggleFullscreen,
-    isFullscreen,
-}: Props) => {
+const Footer = ({onToggleFullscreen, isFullscreen}: Props) => {
     const [paused, setPaused] = useState(true);
-    const [showFooter, setShowFooter] = useState(true);
 
     const setSubtitle = useSubtitleDispatch();
 
@@ -64,7 +56,7 @@ const Footer = ({
         onToggleFullscreen
     )
 
-    const sidebarToggle = useShortcut(shortcuts.TOGGLE_SIDEBAR, () => onToggleSidebar());
+    // const sidebarToggle = useShortcut(shortcuts.TOGGLE_SIDEBAR, () => onToggleSidebar());
 
     const addSubtitles = useShortcut(shortcuts.ADD_SUBTITLE, async () => {
         const options = {
@@ -93,33 +85,8 @@ const Footer = ({
         setSubtitle(src)
     });
 
-    const handleHideFooter = () => {
-        if (isFullscreen) setShowFooter(false);
-    }
-
-    // handle show footer
-    useEffect(() => {
-        const listener = (e: MouseEvent) => {
-            // show when mouse touch bottom edge
-            if (e.clientY >= window.innerHeight - 10) {
-                setShowFooter(true);
-            }
-        };
-
-        if (isFullscreen) document.addEventListener('mousemove', listener);
-        else setShowFooter(true)
-
-        return () => {
-            if (isFullscreen) document.removeEventListener('mousemove', listener)
-        };
-    }, [isFullscreen])
-
     return (
-        <footer
-            style={{display: showFooter ? 'block' : 'none'}}
-            onMouseLeave={handleHideFooter}
-            className={styles.footer}
-        >
+        <footer className={styles.footer}>
             <Timeline video={video.current}/>
 
             <div className={styles.controlsContainer}>
@@ -177,12 +144,12 @@ const Footer = ({
                 </div>
 
                 <div className={styles.buttonGroup}>
-                    <button
-                        onClick={sidebarToggle}
-                        title={`sidebar (${shortcuts.TOGGLE_SIDEBAR})`}
-                    >
-                        <BsReverseLayoutSidebarReverse/>
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={sidebarToggle}*/}
+                    {/*    title={`sidebar (${shortcuts.TOGGLE_SIDEBAR})`}*/}
+                    {/*>*/}
+                    {/*    <BsReverseLayoutSidebarReverse/>*/}
+                    {/*</button>*/}
 
                     <Speed
                         video={video.current}

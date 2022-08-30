@@ -21,7 +21,7 @@ export const detectFullscreen = function() {
 export function toggleFullscreen(elm: HTMLElement) {
     if (!fullScreenEnabled) return;
 
-    if (isFullScreen()) {
+    if (detectFullscreen()) {
         if (document.exitFullscreen) document.exitFullscreen();
         else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
         else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();
