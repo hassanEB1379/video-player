@@ -7,6 +7,7 @@ const pwa = VitePWA({
     devOptions: {
         enabled: true
     },
+    injectRegister: 'inline',
     manifest: {
         'name':'Video player',
         'short_name':'Video player',
@@ -27,6 +28,9 @@ const pwa = VitePWA({
         'display':'standalone',
         'start_url': '.',
         'id': '/video-player'
+    },
+    workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
     }
 })
 
