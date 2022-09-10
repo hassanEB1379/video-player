@@ -13,12 +13,12 @@ const pwa = VitePWA({
         'short_name':'Video player',
         'icons':[
             {
-                'src':'/images/android-chrome-192x192.png',
+                'src':  '/video-player/images/android-chrome-192x192.png',
                 'sizes':'192x192',
                 'type':'image/png'
             },
             {
-                'src':'/images/android-chrome-512x512.png',
+                'src':'/video-player/android-chrome-512x512.png',
                 'sizes':'512x512',
                 'type':'image/png'
             }
