@@ -36,6 +36,7 @@ const pwa = VitePWA({
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: '/video-player/',
     plugins: [react(), pwa],
     server: {
         port: 9000,
