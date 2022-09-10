@@ -1,1 +1,0 @@
-export {HideOnFullscreen} from './HideOnFullscreen'

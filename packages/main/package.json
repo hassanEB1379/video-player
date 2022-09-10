@@ -1,0 +1,5 @@
+{
+  "name": "@app/main",
+  "main": "./App.tsx",
+  "version": "1.0.1"
+}

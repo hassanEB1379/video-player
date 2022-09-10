@@ -1,1 +1,0 @@
-export {Player as default} from './ui/Player';
