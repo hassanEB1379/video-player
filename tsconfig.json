@@ -14,6 +14,7 @@
     "node_modules"
   ],
   "include": [
-    "src/index.tsx"
+    "src/index.tsx",
+    "src/global.d.ts"
   ]
 }
